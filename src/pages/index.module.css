@@ -14,9 +14,17 @@
   .heroBanner {
     padding: 2rem;
   }
+
+  video {
+    width: 90% !important;
+    height: 90% !important;
+  }
 }
 
-
+video {
+  width: 640px;
+  height: 360px;
+}
 
 .buttons {
   display: flex;

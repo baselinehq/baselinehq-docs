@@ -6,7 +6,7 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import ReactPlayer from 'react-player';
 // @ts-ignore
-import DemoVideo from '@site/static/video/demo.webm';
+import DemoVideo from '@site/static/video/demo.mp4';
 
 
 import styles from './index.module.css';
