@@ -7,6 +7,7 @@ import Heading from '@theme/Heading';
 import ReactPlayer from 'react-player';
 // @ts-ignore
 import DemoVideo from '@site/static/video/demo.mp4';
+import ShowcaseGIF from '@site/static/video/showcase.gif';
 
 
 import styles from './index.module.css';
@@ -46,7 +47,8 @@ export default function Home(): ReactNode {
             <HomepageHeader />
             <div className="video">
                 <Heading as="h2">Learn how Costgraph works!</Heading>
-                <ReactPlayer playing controls url={DemoVideo} />
+                {/*<ReactPlayer playing controls url={DemoVideo} />*/}
+                <img src={ShowcaseGIF} alt="Costgraph Showcase" />
                 <p className={styles.buttons} style={{marginTop: '1rem'}}>Love the product? Learn more about building on Costgraph's knowledge base
                     <Link
                     className="button button--secondary button--lg"
