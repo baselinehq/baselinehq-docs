@@ -13,9 +13,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
-
       - uses: jsmrcaga/action-netlify-deploy@master
         name: Deploy to Netlify
         with:
@@ -23,4 +20,3 @@ jobs:
           NETLIFY_SITE_ID: baselinehq-docs
           NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
           NETLIFY_DEPLOY_TO_PROD: true
-          build_directory: 'dist'
