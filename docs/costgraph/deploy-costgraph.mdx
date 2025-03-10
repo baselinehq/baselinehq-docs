@@ -16,11 +16,17 @@ This is an installation of the `helm` CLI. Check out the [tools installation gui
 
 If you do not have prometheus-server installed on your cluster, you can use the installation guide below:
 
+1. Add the chart to deploy prometheus on the cluster.
 ```shell
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+```
+
+1. Install the operator to begin collecting metrics for workloads on the cluster.
+```shell
 helm install prometheus prometheus-community/prometheus --namespace prometheus-system --create-namespace
 kubectl wait --for=condition=available --timeout=10m -n prometheus-system deploy/prometheus-server
 ```
+
 
 ### Obtain an API Key
 
@@ -30,7 +36,18 @@ import APIKeyImage from "@site/static/img/api-key.png"
 
 <img src={APIKeyImage} alt="API Key Image"  />
 
-### Helm configuration 
+
+### Setup a plan
+
+Once you obtain an API key, setup a plan to allow the API key to have billing enabled.
+
+:::tip[Free Plan Available For Developers]
+
+There's a free plan available on the `One-Time` tab to begin using Costgraph without any payment.
+
+:::
+
+### Helm configuration
 In deploying the costgraph operator, the charts are available in the GitHub repository [costgraph-charts](https://github.com/BaselineHQ/costgraph-charts)
 
 Run the helm command below to import the charts into the repository to begin deploying the operator.
