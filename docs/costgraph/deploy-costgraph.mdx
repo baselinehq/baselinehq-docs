@@ -41,9 +41,15 @@ import APIKeyImage from "@site/static/img/api-key.png"
 
 Once you obtain an API key, setup a plan to allow the API key to have billing enabled.
 
+
+:::warning[Setting up a plan]
+You must have a plan setup for your organization to use the operator. Not doing so will cause the operator to fail on startup.
+
 :::tip[Free Plan Available For Developers]
 
 There's a free plan available on the `One-Time` tab to begin using Costgraph without any payment.
+
+:::
 
 :::
 
@@ -141,7 +147,7 @@ Unless modified, the username and password for the superset instance is `admin` 
 
 Once the deployment is complete, you can access the costgraph dashboard on the domain `costgraph.$domain` and login with the credentials provided in the configuration file.
 
-:::caution[Accessing the dashboard]
+:::note[Accessing the dashboard]
 
 Ensure that the domain is accessible from the network you are connecting from. If you are using a local cluster, you can use the `kubectl port-forward` command to access the dashboard.
 
@@ -149,11 +155,36 @@ Ensure that the domain is accessible from the network you are connecting from. I
 python -m webbrowser -t http://localhost:8088
 kubectl port-forward svc/superset 8088:80 -n costgraph
 ```
+:::
+
+## Prometheus
+
+The operator comes pre-installed with a prometheus server allowing you to view metrics as available on the database in the prometheus dashboard.
+
+:::note[Exposing Prmetheus Metrics]
+
+You must have service auto-discovery enabled for kubernetes services to have the operator metrics scraped by the prometheus server.
+
+> NOTE: If you installed prometheus-server using this guide, you have auto-discovery enabled by default for kubernetes services.
+
+If you do not see any targets with `costgraph`, the scrape configuration will need to be manually added as a static target to your prometheus instance.
+
+```yaml
+-   job_name: 'costgraph'
+    honor_labels: true
+    scrape_interval: 1m
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+    - targets: ['costgraph.costgraph:9090']
+```
 
 :::
 
+All metrics are prefixed with the `costgraph_` prefix and can be viewed for your usage in Grafana, Perses or your preferred dashboard tool.
 
 
+import PrometheusImage from "@site/static/img/prometheus.png"
 
-
-
+<img src={PrometheusImage} alt="API Key Image"  />

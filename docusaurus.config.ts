@@ -32,6 +32,10 @@ const config: Config = {
     locales: ['en'],
   },
 
+  plugins: [
+    'plugin-image-zoom'
+  ],
+
   presets: [
     [
       'classic',
@@ -82,6 +86,12 @@ const config: Config = {
   ],
 
   themeConfig: {
+    imageZoom: {
+      // CSS selector to apply the plugin to, defaults to '.markdown img'
+      selector: '.markdown img',
+      // Optional medium-zoom options
+      // see: https://www.npmjs.com/package/medium-zoom#options
+    },
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: false,
