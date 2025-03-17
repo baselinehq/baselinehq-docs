@@ -136,6 +136,17 @@ postgres:
     postgres_port: db_port
 ```
 
+If you want to have a PVC for the database, set the pvc configuration to `true` and update the size for the PVC.
+
+> **NOTE:** This will create a StatefulSet for the database instance and does not directly configure a PVC for the database.
+
+```yaml
+postgres:
+    pvc:
+      enabled: true
+      size: 10Gi
+```
+
 ## Deployment
 Finally deploy the configuration with the updated settings for your costgraph instance
 
