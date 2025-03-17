@@ -9,7 +9,7 @@ Get started on running Costgraph on your infrastructure.
 
 ## PreRequisites
 
-### Helm 
+### Helm
 This is an installation of the `helm` CLI. Check out the [tools installation guide](https://helm.sh/docs/intro/install/).
 
 ### Prometheus
@@ -137,69 +137,88 @@ postgres:
 ```
 
 ## Deployment
-Finally deploy the configuration with the updated settings for your costgraph instance 
+Finally deploy the configuration with the updated settings for your costgraph instance
 
 ```shell
 helm install costgraph costgraph/costgraph -f <values-file>
 ```
 
+import Tabs from '@theme/Tabs';
+
+import TabItem from '@theme/TabItem';
+
+import PrometheusImage from "@site/static/img/prometheus.png";
+
+import GrafanaShowcase from "@site/static/video/grafana.gif";
 
 
-## Accessing the dashboard
+## Post Deployment
 
-:::tip[Superset Credentials]
+In the tabs below, you will find features available to you after the helm deployment is complete and resources are provisioned successfully.
 
-Unless modified, the username and password for the superset instance is `admin` and `admin`
+<Tabs>
+    <TabItem value="dashboard" label="Accessing Superset">
 
-:::
+        :::tip[Superset Credentials]
 
-Once the deployment is complete, you can access the costgraph dashboard on the domain `costgraph.$domain` and login with the credentials provided in the configuration file.
+        Unless modified, the username and password for the superset instance is `admin` and `admin`
 
-:::note[Accessing the dashboard]
+        :::
 
-Ensure that the domain is accessible from the network you are connecting from. If you are using a local cluster, you can use the `kubectl port-forward` command to access the dashboard.
+        Once the deployment is complete, you can access the costgraph dashboard on the domain `costgraph.$domain` and login with the credentials provided in the configuration file.
 
-```shell
-python -m webbrowser -t http://localhost:8088
-kubectl port-forward svc/superset 8088:80 -n costgraph
-```
-:::
+        :::note[Accessing the dashboard]
 
-## Prometheus
+        Ensure that the domain is accessible from the network you are connecting from. If you are using a local cluster, you can use the `kubectl port-forward` command to access the dashboard.
 
-The operator comes pre-installed with a prometheus server allowing you to view metrics as available on the database in the prometheus dashboard.
+        ```shell
+        python -m webbrowser -t http://localhost:8088
+        kubectl port-forward svc/superset 8088:80 -n costgraph
+        ```
+        :::
+    </TabItem>
+    <TabItem value="prometheus" label="Prometheus Metrics">
 
-:::note[Exposing Prmetheus Metrics]
+        The operator comes pre-installed with a prometheus server allowing you to view metrics as available on the database in the prometheus dashboard.
 
-You must have service auto-discovery enabled for kubernetes services to have the operator metrics scraped by the prometheus server.
+        :::note[Exposing Prmetheus Metrics]
 
-> NOTE: If you installed prometheus-server using this guide, you have auto-discovery enabled by default for kubernetes services.
+        You must have service auto-discovery enabled for kubernetes services to have the operator metrics scraped by the prometheus server.
 
-If you do not see any targets with `costgraph`, the scrape configuration will need to be manually added as a static target to your prometheus instance.
+        > NOTE: If you installed prometheus-server using this guide, you have auto-discovery enabled by default for kubernetes services.
 
-```yaml
--   job_name: 'costgraph'
-    honor_labels: true
-    scrape_interval: 1m
-    scrape_timeout: 10s
-    metrics_path: /metrics
-    scheme: http
-    static_configs:
-    - targets: ['costgraph.costgraph:9090']
-```
+        If you do not see any targets with `costgraph`, the scrape configuration will need to be manually added as a static target to your prometheus instance.
 
-:::
+        ```yaml
+        - job_name: 'costgraph'
+        honor_labels: true
+        scrape_interval: 1m
+        scrape_timeout: 10s
+        metrics_path: /metrics
+        scheme: http
+        static_configs:
+          - targets: ['costgraph.costgraph:9090']
+        ```
 
-All metrics are prefixed with the `costgraph_` prefix and can be viewed for your usage in Grafana, Perses or your preferred dashboard tool.
+        :::
 
-
-import PrometheusImage from "@site/static/img/prometheus.png"
-
-<img src={PrometheusImage} alt="API Key Image"  />
+        All metrics are prefixed with the `costgraph_` prefix and can be viewed for your usage in Grafana, Perses or your preferred dashboard tool.
 
 
-Once you have the operator running, you can install the Grafana dashboard to view the metrics in a more user-friendly format.
 
-import GrafanaShowcase from "@site/static/video/grafana.gif"
+        <img src={PrometheusImage} alt="API Key Image"  />
+    </TabItem>
+    <TabItem value="grafana" label="Grafana Dashboard">
+        Once you have the operator running, you can install the Grafana dashboard to view the metrics in a more user-friendly format. The Grafana dashboard is available in the [costgraph-manifests](https://github.com/baselinehq/costgraph-manifests) repository.
 
-<img src={GrafanaShowcase} alt="Grafana using Prometheus metrics"  />
+
+        <img src={GrafanaShowcase} alt="Grafana using Prometheus metrics"  />
+
+    </TabItem>
+</Tabs>
+
+
+
+
+
+
