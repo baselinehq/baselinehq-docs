@@ -5,10 +5,27 @@ title: Building on Costgraph Data
 
 # Building on Costgraph Data
 
-Learn how Costgraph can be used to develop tooling to provide insights for your infrastructure.
+import Tabs from '@theme/Tabs';
 
-In this example, we explore the power of LLMs with a chat-based application powered by the Costgraph knowledge base.
+import TabItem from '@theme/TabItem';
 
 import ChatVideo from '@site/static/video/chat.gif';
 
-<img src={ChatVideo} alt="Chat interface with CostGraph data"  />
+<Tabs>
+    <TabItem value="chat-with-llm" label="Chat with LLMs">
+        Learn how Costgraph can be used to develop tooling to provide insights for your infrastructure.
+
+        In this example, we explore the power of LLMs with a chat-based application powered by the Costgraph knowledge base.
+
+        <img src={ChatVideo} alt="Chat interface with CostGraph data"  />
+    </TabItem>
+
+    <TabItem value="autoscaling" label="Autoscaling Pods with Costgraph">
+        Autoscaling pods is as easy as deploying the Costgraph operator and using the recommendations provided.
+
+        If you need more tooling integrations, Costgraph data adapts with
+        1. [Keda (Prometheus)](https://keda.sh/docs/latest/scalers/prometheus/)
+        2. [Keda (Postgresql)](https://keda.sh/docs/latest/scalers/postgresql/)
+    </TabItem>
+</Tabs>
+
