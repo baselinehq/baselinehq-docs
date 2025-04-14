@@ -158,10 +158,11 @@ import Tabs from '@theme/Tabs';
 
 import TabItem from '@theme/TabItem';
 
-import PrometheusImage from "@site/static/img/prometheus.png";
+import PrometheusImage from "@site/static/video/prometheus.gif";
 
 import GrafanaShowcase from "@site/static/video/grafana.gif";
 
+import ShowcaseGIF from '@site/static/video/showcase.gif';
 
 ## Post Deployment
 
@@ -187,6 +188,8 @@ In the tabs below, you will find features available to you after the helm deploy
         kubectl port-forward svc/superset 8088:80 -n costgraph
         ```
         :::
+
+        <img src={ShowcaseGIF} alt="Costgraph Showcase" />
     </TabItem>
     <TabItem value="prometheus" label="Prometheus Metrics">
 
@@ -217,7 +220,7 @@ In the tabs below, you will find features available to you after the helm deploy
 
 
 
-        <img src={PrometheusImage} alt="API Key Image"  />
+        <img src={PrometheusImage} alt="Prometheus Metrics"  />
     </TabItem>
     <TabItem value="grafana" label="Grafana Dashboard">
         Once you have the operator running, you can install the Grafana dashboard to view the metrics in a more user-friendly format. The Grafana dashboard is available in the [costgraph-manifests](https://github.com/baselinehq/costgraph-manifests) repository.

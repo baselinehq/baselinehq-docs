@@ -112,7 +112,7 @@ const config: Config = {
           type: 'localeDropdown',
         },
         {
-          href: 'https://github.com/BaselineHQ/costgraph-docs',
+          href: 'https://github.com/BaselineHQ/baselinehq-docs',
           label: 'GitHub',
           position: 'right',
         },
@@ -130,7 +130,7 @@ const config: Config = {
             // },
             {
               label: 'GitHub',
-              href: 'https://github.com/BaselineHQ/costgraph',
+              href: 'https://github.com/BaselineHQ/baselinehq-docs',
             },
           ],
         },
