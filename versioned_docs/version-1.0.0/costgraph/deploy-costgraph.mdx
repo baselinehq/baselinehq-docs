@@ -78,7 +78,6 @@ domain: <your-company-subdomain>
 costgraph:
   config:
     costgraph_instance_name: <instance-name>
-    expected_utilisation_percent: <expected-utilisation>
     prometheus_endpoint: <prometheus-address>
     api_key: <your-api-key>
 ```
@@ -101,6 +100,19 @@ costgraph:
 :::
 
 
+### Expected Utilisation Percentages
+
+If you want to configure expected utilisation percentages for recommendations on the costgraph instance, you can change it using the following configuration:
+
+```yaml
+costgraph:
+  config:
+    expected_utilisation_percent:
+      cpu: 80
+      memory: 80
+```
+
+By default, the expected utilisation is set to 80% for both CPU and Memory. You can change this to your desired value.
 
 
 ### Superset
@@ -223,7 +235,7 @@ In the tabs below, you will find features available to you after the helm deploy
         <img src={PrometheusImage} alt="Prometheus Metrics"  />
     </TabItem>
     <TabItem value="grafana" label="Grafana Dashboard">
-        Once you have the operator running, you can install the Grafana dashboard to view the metrics in a more user-friendly format. The Grafana dashboard is available in the [costgraph-manifests](https://github.com/baselinehq/costgraph-manifests) repository.
+        Once you have the operator running, you can install the Grafana dashboard to view the metrics in a more user-friendly format. The Grafana dashboard is available in the [costgraph-manifests](https://github.com/baselinehq/costgraph-operator-manifests) repository.
 
 
         <img src={GrafanaShowcase} alt="Grafana using Prometheus metrics"  />
