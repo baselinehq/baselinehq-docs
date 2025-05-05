@@ -7,7 +7,7 @@ sidebar_position: 1
 Get started on running Costgraph on your infrastructure.
 
 
-## PreRequisites
+## Prerequisites
 
 ### Helm
 This is an installation of the `helm` CLI. Check out the [tools installation guide](https://helm.sh/docs/intro/install/).
@@ -20,6 +20,21 @@ If you do not have prometheus-server installed on your cluster, you can use the 
 ```shell
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 ```
+
+<details>
+<summary><strong>Existing Prometheus installations</strong></summary>
+
+If you already have Prometheus running in your cluster, you can skip these installation steps and proceed directly to the [Configuration](#configuration) section.
+
+In your Helm `values.yaml`, set the `prometheus_endpoint` to your existing Prometheus URL.
+
+For example, if you're using the **kube-prometheus-stack**, the endpoint is typically:
+
+```yaml
+prometheus_endpoint: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc:9090
+```
+
+</details> 
 
 - Install the operator to begin collecting metrics for workloads on the cluster.
 ```shell
