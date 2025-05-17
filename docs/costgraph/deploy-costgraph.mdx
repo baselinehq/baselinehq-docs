@@ -206,15 +206,58 @@ In the tabs below, you will find features available to you after the helm deploy
 
         Once the deployment is complete, you can access the costgraph dashboard on the domain `costgraph.$domain` and login with the credentials provided in the configuration file.
 
-        :::note[Accessing the dashboard]
+      ### Accessing the dashboard 
 
         Ensure that the domain is accessible from the network you are connecting from. If you are using a local cluster, you can use the `kubectl port-forward` command to access the dashboard.
 
-        ```shell
-        python -m webbrowser -t http://localhost:8088
-        kubectl port-forward svc/superset 8088:80 -n costgraph
-        ```
-        :::
+        <Tabs>
+            <TabItem value="port-forward" label="Port Forwarding">
+            The quickest way to access the dashboard is to use port forwarding. This will forward the port `8088` on your local machine to the port `80` on the costgraph service.
+                ```shell
+                kubectl port-forward -n costgraph svc/costgraph 8088:80
+                ```
+            
+                You can then access the dashboard on `localhost:8088` in your browser.
+
+            </TabItem>
+            <TabItem value="ingress" label="Ingress">
+                If you have an ingress controller installed, you can access the dashboard using the ingress controller's URL.
+
+                For users of `nginx-ingress`, you can use the following command to get the ingress controller's URL:
+
+                ```yaml
+                apiVersion: networking.k8s.io/v1
+                kind: Ingress
+                metadata:
+                  name: costgraph
+                  namespace: costgraph
+                  annotations:
+                    kubernetes.io/ingress.class: nginx
+                spec:
+                  rules:
+                  - host: costgraph.<your-domain>
+                    http:
+                      paths:
+                      - path: /
+                        pathType: Prefix
+                        backend:
+                          service:
+                            name: costgraph
+                            port:
+                              number: 80
+                ```   
+
+                :::tip[Ingress Annotations]
+                For users for traefik version 35.0.0 and below you will need to add the following annotations to the ingress resource:
+
+                ```yaml 
+                kubernetes.io/ingress.class: traefik
+                ``` 
+                ::: 
+            </TabItem>
+        </Tabs>
+
+  
 
         <img src={ShowcaseGIF} alt="Costgraph Showcase" />
     </TabItem>
@@ -250,8 +293,7 @@ In the tabs below, you will find features available to you after the helm deploy
         <img src={PrometheusImage} alt="Prometheus Metrics"  />
     </TabItem>
     <TabItem value="grafana" label="Grafana Dashboard">
-        Once you have the operator running, you can install the Grafana dashboard to view the metrics in a more user-friendly format. The Grafana dashboard is available in the [costgraph-manifests](https://github.com/baselinehq/costgraph-operator-manifests) repository.
-
+        Once you have the operator running, you can install the Grafana dashboard to view the metrics in a more user-friendly format. The Grafana dashboard is available in the [costgraph-manifests](https://github.com/baselinehq/costgraph-manifests) repository.
 
         <img src={GrafanaShowcase} alt="Grafana using Prometheus metrics"  />
 
