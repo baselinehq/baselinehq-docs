@@ -226,14 +226,13 @@ In the tabs below, you will find features available to you after the helm deploy
                 For users of `nginx-ingress`, you can use the following command to get the ingress controller's URL:
 
                 ```yaml
-                apiVersion: networking.k8s.io/v1
+              apiVersion: networking.k8s.io/v1
                 kind: Ingress
                 metadata:
                   name: costgraph
                   namespace: costgraph
-                  annotations:
-                    kubernetes.io/ingress.class: nginx
                 spec:
+                  ingressClassName: nginx
                   rules:
                   - host: costgraph.<your-domain>
                     http:
@@ -248,12 +247,7 @@ In the tabs below, you will find features available to you after the helm deploy
                 ```   
 
                 :::tip[Ingress Annotations]
-                For users for traefik version 35.0.0 and below you will need to add the following annotations to the ingress resource:
-
-                ```yaml 
-                kubernetes.io/ingress.class: traefik
-                ``` 
-                
+                For kubernetes version < 1.18 or traefik v1 (chart 1.x – 2.x) use the `kubernetes.io/ingress.class` annotation to specify the ingress class.
                 ::: 
             </TabItem>
         </Tabs>
