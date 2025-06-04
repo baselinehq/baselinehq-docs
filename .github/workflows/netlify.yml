@@ -1,7 +1,24 @@
 name: Build and Deploy to Netlify
 on:
   push:
+    branches: [ "main" ]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
   pull_request:
+
+env:
+  NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+  NETLIFY_SITE_ID: ${{ github.event.repository.name }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+permissions:
+  pull-requests: write
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -13,10 +30,24 @@ jobs:
         with:
           node-version: '20'
 
-      - uses: jsmrcaga/action-netlify-deploy@master
-        name: Deploy to Netlify
-        with:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: baselinehq-docs
-          NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
-          NETLIFY_DEPLOY_TO_PROD: true
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Install Netlify CLI
+        run: |
+          npm install -g netlify-cli
+          netlify status
+
+      - name: Deploy to Netlify (stage)
+        if: github.event_name == 'pull_request'
+        run: |
+          DEPLOY_URL=$(netlify deploy --dir=./build --alias ${{ github.head_ref }} --no-build --message "PR deploy v${{ github.ref }}" --json | jq '.deploy_url')
+          gh pr comment ${{ github.event.pull_request.number }} --body "🚀 Preview deploy: $DEPLOY_URL"
+
+      - name: Deploy to Netlify (prod)
+        if: github.ref_name == github.event.repository.default_branch
+        run: |
+          netlify deploy --dir=./build  --no-build --prod --message "Prod deploy v${{ github.ref }}"
