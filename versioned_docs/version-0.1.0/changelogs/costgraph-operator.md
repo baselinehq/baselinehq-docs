@@ -39,9 +39,9 @@ Releases for the CostGraph operator will have helm tags associated that are not 
 
 ### Updates
 - Initial release
-- Supported all major kubernetes cloud providers such as AWS, GCP, Azure
+- Support for all major kubernetes cloud providers such as AWS, GCP, Azure
 - Dashboards iterations with customers for their internal use cases
 - API key support for multiple clusters within a single account
 - RBAC and invitation support for organizations
-- Clusters can now be viewed on the parent dashboard
+- Clusters can now be viewed on the web dashboard
 
