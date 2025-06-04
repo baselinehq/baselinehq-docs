@@ -28,17 +28,12 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
-        with:
-          publish-dir: './build'
-          production-branch: main
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Prod deploy v${{ github.ref }}"
-          enable-pull-request-comment: false
-          enable-commit-comment: true
-          overwrites-pull-request-comment: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ github.event.repository.name }}
-        timeout-minutes: 1
+        run: |
+          netlify deploy --dir=./build --site=${{ secrets.NETLIFY_SITE_ID }} --prod --message "Prod deploy v${{ github.ref }}"
