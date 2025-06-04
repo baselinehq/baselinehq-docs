@@ -40,5 +40,5 @@ jobs:
           overwrites-pull-request-comment: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ github.repository }}
+          NETLIFY_SITE_ID: ${{ github.event.repository.name }}
         timeout-minutes: 1
