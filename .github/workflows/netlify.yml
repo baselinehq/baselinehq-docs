@@ -6,6 +6,11 @@ on:
     tags: [ 'v*.*.*' ]
   pull_request:
 
+
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -17,11 +22,23 @@ jobs:
         with:
           node-version: '20'
 
-      - uses: jsmrcaga/action-netlify-deploy@master
-        name: Deploy to Netlify
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
         with:
+          publish-dir: './build'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Prod deploy v${{ github.ref }}"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: baselinehq-docs
-          NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
-          NETLIFY_DEPLOY_TO_PROD: true
-          debug: true
+          NETLIFY_SITE_ID: ${{ github.repository }}
+        timeout-minutes: 1
