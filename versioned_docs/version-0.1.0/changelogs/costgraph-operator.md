@@ -3,7 +3,22 @@ sidebar_position: 1
 title: CostGraph Operator
 ---
 
-# v0.1.0 (Jun 3, 2025)
+# Changelog
+Releases for the CostGraph operator will have helm tags associated that are not tied to the release version. Across helm versions within a major or minor release, patch updates will be made for hotfixes, bugs and business focused updates. Helm release notes are available on our [chart repository](https://github.com/BaselineHQ/costgraph-charts), view the helm [index.yaml](https://baselinehq.github.io/costgraph-charts/index.yaml) to find information about the latest releases.
+
+## SLA
+- We will provide changelogs for major and minor releases of the operator.
+- Customers will be made aware of any breaking changes in any release cycle.
+- We aim to provide releases on a regular basis for customer features and business priorities.
+- All related tag updates will be made under a helm release, no update is needed from customers for operator dependencies.
+
+## v0.1.0 (Jun 3, 2025)
+> Starting Helm Version: **0.1.19**
+
+### Breaking Changes
+- Due to the deployment of our new pricing infrastructure, customers using the raw pricing data will see schema changes. As much as we attempt to provide a standard schema, this change was unavoidable. This change is limited to customers developing with the data from our operator, no changes will be observed for dashboard and prometheus experiences.
+
+### Updates
 - Deployment of a new pricing infrastructure bringing improved operator performance with lower latency 
 - Updates to the savings dashboard to show more than 5 entries previously causing customers to miss relatively smaller container resources
 - Improved pricing updates supporting newer cloud instance types and various usage types such as spot and reserved
@@ -16,7 +31,13 @@ title: CostGraph Operator
 - Future support for resource pricing updates in Storage, Network, GPUs and related resource types
 
 
-# v0.0.1 (Mar 5, 2025)
+## v0.0.1 (Mar 5, 2025)
+> Starting Helm Version: **0.0.1**
+
+### Breaking Changes
+- N/A
+
+### Updates
 - Initial release
 - Supported all major kubernetes cloud providers such as AWS, GCP, Azure
 - Dashboards iterations with customers for their internal use cases
