@@ -3,7 +3,7 @@ sidebar_position: 1
 title: CostGraph Operator
 ---
 
-# Changelog
+# Changelogs
 Releases for the CostGraph operator will have helm tags associated that are not tied to the release version. Across helm versions within a major or minor release, patch updates will be made for hotfixes, bugs and business focused updates. Helm release notes are available on our [chart repository](https://github.com/BaselineHQ/costgraph-charts), view the helm [index.yaml](https://baselinehq.github.io/costgraph-charts/index.yaml) to find information about the latest releases.
 
 ## SLA
