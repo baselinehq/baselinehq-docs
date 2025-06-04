@@ -36,5 +36,5 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ github.event.repository.name }}
         run: |
-          netlify status ---debug
+          netlify status --debug
           netlify deploy --auth ${NETLIFY_AUTH_TOKEN} --dir=./build --site=${NETLIFY_SITE_ID} --prod --message "Prod deploy v${{ github.ref }}"
