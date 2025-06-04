@@ -6,6 +6,9 @@ on:
     tags: [ 'v*.*.*' ]
   pull_request:
 
+env:
+  NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+  NETLIFY_SITE_ID: ${{ github.event.repository.name }}
 
 permissions:
   pull-requests: write
@@ -31,10 +34,15 @@ jobs:
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
-      - name: Deploy to Netlify
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ github.event.repository.name }}
+      - name: Deploy to Netlify (stage)
+        if: github.event_name == 'pull_request'
         run: |
           netlify status --debug
-          netlify deploy --dir=./build  --no-build --prod --message "Prod deploy v${{ github.ref }}"
+          netlify deploy --dir=./build --alias ${{ github.head_ref }} --no-build --message "PR deploy v${{ github.ref }}" --json
+
+      - name: Deploy to Netlify (stage)
+        if: github.ref_name == github.event.repository.default_branch
+        run: |
+          netlify status --debug
+          netlify deploy --dir=./build  --no-build --prod --message "Prod deploy v${{ github.ref }}" --json
+
