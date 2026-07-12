@@ -22,3 +22,9 @@ Costgraph aims to replace in the future:
 3. Difficulty for teams looking to perform cost and resource rightsizing efforts for their organisations.
 
 To get started, deploy the operator and get started on our cost improvement journey.
+
+## Pricing
+
+Compute monitoring is free while your monthly node spend stays under $500. Once node spend reaches $500, compute is billed at $15 per node or 2% of node spend, whichever is higher.
+
+The AI assistant (GraphAI and the CostGraph MCP server) and the Pricing API are billed per request, independent of the compute freemium threshold.
