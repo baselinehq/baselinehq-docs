@@ -27,4 +27,4 @@ To get started, deploy the operator and begin your cost improvement journey.
 
 Compute monitoring is free while your monthly spend stays under $500. Above $500, compute is billed at $15 per node or 2% of spend, whichever is higher.
 
-The AI assistant (GraphAI and the Costgraph MCP server) and the Pricing API are billed per request, independent of the compute freemium threshold.
+The AI assistant (Costgraph MCP server) and the Pricing API are billed per request, independent of the compute freemium threshold.
